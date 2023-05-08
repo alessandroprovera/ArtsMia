@@ -47,12 +47,25 @@ public class FXMLController {
     
     @FXML
     void doAnalizzaOggetti(ActionEvent event) {
-
+    	this.txtResult.clear();
+    	this.model.buildGraph();
+    	this.txtResult.appendText("grafo creato\n");
     }
 
     @FXML
     void doCalcolaComponenteConnessa(ActionEvent event) {
-
+    	String input = this.txtObjectId.getText();
+    	Integer inputNum = 0;
+    	try {
+			inputNum = Integer.parseInt(input);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	if(this.model.isIDInGraph(inputNum)) {
+    		Integer sizeConnessa = this.model.calcolaConnessa(inputNum);
+    		this.txtResult.setText("Il nodo "+input+" fa parte di una comp connessa di dim " + sizeConnessa);
+    	}
     }
 
     @FXML
